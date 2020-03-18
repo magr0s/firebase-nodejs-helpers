@@ -1,4 +1,4 @@
-const admin = require('firebase-admin');
+const admin = require('firebase-admin')
 
 class Firestore {
   constructor () {
@@ -16,9 +16,9 @@ class Firestore {
       conditions,
       orderBy,
       limit = 0
-    } = params;
+    } = params
 
-    let ref = this.db.collection(path);
+    let ref = this.db.collection(path)
 
     if (Array.isArray(conditions)) {
       conditions.forEach((condition) => {
@@ -26,23 +26,23 @@ class Firestore {
           field,
           operator,
           value
-        } = condition;
+        } = condition
 
         if (field && operator && value) {
-          ref = ref.where(field, operator, value);
+          ref = ref.where(field, operator, value)
         }
       })
     }
 
     if (typeof (orderBy) === 'string') {
-      const [field, order = 'asc'] = orderBy.split('|');
+      const [field, order = 'asc'] = orderBy.split('|')
 
-      ref.orderBy(field, order);
+      ref.orderBy(field, order)
     }
 
-    limit && ref.limit(limit);
+    limit && ref.limit(limit)
 
-    return ref.get();
+    return ref.get()
   }
 
   /**
@@ -52,7 +52,7 @@ class Firestore {
    */
   get (path) {
     return this.db.doc(path)
-      .get();
+      .get()
   }
 
   /**
@@ -63,7 +63,7 @@ class Firestore {
    */
   create (path, params) {
     return this.db.collection(path)
-      .add(params);
+      .add(params)
   }
 
   /**
@@ -75,7 +75,7 @@ class Firestore {
    */
   set (path, params, merge = false) {
     return this.db.doc(path)
-      .set(params, { merge });
+      .set(params, { merge })
   }
 
   /**
@@ -86,7 +86,7 @@ class Firestore {
    */
   update (path, params) {
     return this.db.doc(path)
-      .update(params);
+      .update(params)
   }
 
   /**
@@ -96,8 +96,8 @@ class Firestore {
    */
   delete (path) {
     return this.db.doc(path)
-      .delete();
+      .delete()
   }
 }
 
-module.exports = Firestore;
+module.exports = Firestore

@@ -8,16 +8,16 @@ npm install firebase-nodejs-helpers
 ## Usage
 ```js
 // index.js
-const { FirebaseAdmin } = require('firebase-nodejs-helpers');
-const config = require(`path/to/config/${process.env.GCLOUD_PROJECT}.json`);
+const { FirebaseAdmin } = require('firebase-nodejs-helpers')
+const config = require(`path/to/config/${process.env.GCLOUD_PROJECT}.json`)
 
-FirebaseAdmin.init({ config });
+FirebaseAdmin.init({ config })
 ```
 
 ```js
 // model.js
-const { Firestore } = require('firebase-nodejs-helpers');
-const firestore = new Firestore();
+const { Firestore } = require('firebase-nodejs-helpers')
+const firestore = new Firestore()
 
 class Model {
   constructor (path) {
@@ -28,11 +28,11 @@ class Model {
     return firestore.list(this.path, { conditions, orderBy, limit })
       .then(({ docs }) => (
         docs.map((doc) => {
-          const { id } = doc;
+          const { id } = doc
 
-          return Object.assign({}, doc.data(), { id });
+          return Object.assign({}, doc.data(), { id })
         })
-      ));
+      ))
   }
 }
 ```
@@ -43,9 +43,9 @@ class Model {
 
 ##### Initialize firebase-admin
 ```js
-const config = require('./path/to/service-account.json');
+const config = require('./path/to/service-account.json')
 
-FirebaseAdmin.init({ config });
+FirebaseAdmin.init({ config })
 ```
 
 ### Firestore
@@ -53,7 +53,7 @@ FirebaseAdmin.init({ config });
 ##### Get a collection of documents
 ```js
 // Example
-const firestore = new Firestore();
+const firestore = new Firestore()
 
 firestore.list(
   'path/to/collection',
@@ -68,13 +68,13 @@ firestore.list(
     orderBy: 'field-name|order',
     limit: 10
   }
-);
+)
 ```
 
 ##### Get the document from the collection
 ```js
 // Example
-const firestore = new Firestore();
+const firestore = new Firestore()
 
 firestore.get('path/to/document')
 ```
@@ -82,41 +82,41 @@ firestore.get('path/to/document')
 ##### Create a new document in the collection
 ```js
 // Example
-const firestore = new Firestore();
+const firestore = new Firestore()
 
 firestore.create(
   'path/to/collection',
   { /* some data */ }
-);
+)
 ```
 
 ##### Create a new document or update the document
 ```js
 // Example
-const firestore = new Firestore();
+const firestore = new Firestore()
 
 firestore.set(
   'path/to/document',
   { /* some data */ },
   true // merging document data, false - set new document data
-);
+)
 ```
 
 ##### Update the document data
 ```js
 // Example
-const firestore = new Firestore();
+const firestore = new Firestore()
 
 firestore.update(
   'path/to/document',
   { /* some data */ }
-);
+)
 ```
 
 ##### Remove the document from the collection
 ```js
 // Example
-const firestore = new Firestore();
+const firestore = new Firestore()
 
-firestore.delete('path/to/document');
+firestore.delete('path/to/document')
 ```

@@ -1,4 +1,4 @@
-const admin = require('firebase-admin');
+const admin = require('firebase-admin')
 
 class FirebaseAdmin {
   /**
@@ -6,12 +6,12 @@ class FirebaseAdmin {
    * @param {object} params
    */
   static init (params) {
-    const { config } = params;
+    const { config } = params
 
     admin.initializeApp({
       credential: admin.credential.cert(config)
-    });
+    })
   }
 }
 
-module.exports = FirebaseAdmin;
+module.exports = FirebaseAdmin
