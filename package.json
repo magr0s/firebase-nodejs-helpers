@@ -1,15 +1,27 @@
 {
   "name": "firebase-nodejs-helpers",
   "version": "1.0.0",
-  "description": "",
+  "description": "Node.js helper classes for Firebase",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "firebase",
+    "nodejs",
+    "firestore"
+  ],
+  "author": "Oleksandr Krokhmalnyi <magr0s.ak@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "firebase-admin": "^8.10.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/magr0s/firebase-nodejs-helpers.git"
+  },
+  "bugs": {
+    "url": "https://github.com/magr0s/firebase-nodejs-helpers/issues"
+  },
+  "homepage": "https://github.com/magr0s/firebase-nodejs-helpers#readme"
 }
