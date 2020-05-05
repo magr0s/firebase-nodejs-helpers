@@ -15,17 +15,16 @@ FirebaseAdmin.init({ config })
 ```
 
 ```js
-// model.js
+// repository.js
 const { Firestore } = require('firebase-nodejs-helpers')
-const firestore = new Firestore()
 
-class Model {
+class Repository {
   constructor (path) {
     this.path = path
   }
 
   list (conditions, orderBy, limit) {
-    return firestore.list(this.path, { conditions, orderBy, limit })
+    return Firestore.list(this.path, { conditions, orderBy, limit })
       .then(({ docs }) => (
         docs.map((doc) => {
           const { id } = doc
@@ -53,9 +52,7 @@ FirebaseAdmin.init({ config })
 ##### Get a collection of documents
 ```js
 // Example
-const firestore = new Firestore()
-
-firestore.list(
+Firestore.list(
   'path/to/collection',
   {
     conditions: [
@@ -74,17 +71,13 @@ firestore.list(
 ##### Get the document from the collection
 ```js
 // Example
-const firestore = new Firestore()
-
-firestore.get('path/to/document')
+Firestore.get('path/to/document')
 ```
 
 ##### Create a new document in the collection
 ```js
 // Example
-const firestore = new Firestore()
-
-firestore.create(
+Firestore.create(
   'path/to/collection',
   { /* some data */ }
 )
@@ -93,9 +86,7 @@ firestore.create(
 ##### Create a new document or update the document
 ```js
 // Example
-const firestore = new Firestore()
-
-firestore.set(
+Firestore.set(
   'path/to/document',
   { /* some data */ },
   true // merging document data, false - set new document data
@@ -105,9 +96,7 @@ firestore.set(
 ##### Update the document data
 ```js
 // Example
-const firestore = new Firestore()
-
-firestore.update(
+Firestore.update(
   'path/to/document',
   { /* some data */ }
 )
@@ -116,7 +105,11 @@ firestore.update(
 ##### Remove the document from the collection
 ```js
 // Example
-const firestore = new Firestore()
+Firestore.delete('path/to/document')
+```
 
-firestore.delete('path/to/document')
+##### Create a new or update the documents collection
+```js
+// Example
+Firestore.batchSet('path/to/document', 'id', payload)
 ```

@@ -1,8 +1,12 @@
 const admin = require('firebase-admin')
 
 class Firestore {
-  constructor () {
-    this.db = admin.firestore()
+  /**
+   * Firestore
+   * @returns {FirebaseFirestore.Firestore}
+   */
+  static get db () {
+    return admin.firestore()
   }
 
   /**
@@ -11,14 +15,14 @@ class Firestore {
    * @param {object} params - Query params
    * @returns {Promise<FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData>>}
    */
-  list (path, params = {}) {
+  static list (path, params = {}) {
     const {
       conditions,
       orderBy,
       limit = 0
     } = params
 
-    let ref = this.db.collection(path)
+    let ref = Firestore.db.collection(path)
 
     if (Array.isArray(conditions)) {
       conditions.forEach((condition) => {
@@ -50,8 +54,8 @@ class Firestore {
    * @param {string} path - Document path
    * @returns {Promise<FirebaseFirestore.DocumentSnapshot<FirebaseFirestore.DocumentData>>}
    */
-  get (path) {
-    return this.db.doc(path)
+  static get (path) {
+    return Firestore.db.doc(path)
       .get()
   }
 
@@ -61,8 +65,8 @@ class Firestore {
    * @param {object} params - Document data
    * @returns {Promise<FirebaseFirestore.DocumentReference<FirebaseFirestore.DocumentData>>}
    */
-  create (path, params) {
-    return this.db.collection(path)
+  static create (path, params) {
+    return Firestore.db.collection(path)
       .add(params)
   }
 
@@ -73,8 +77,8 @@ class Firestore {
    * @param {boolean} merge - Update method
    * @returns {Promise<FirebaseFirestore.WriteResult>}
    */
-  set (path, params, merge = false) {
-    return this.db.doc(path)
+  static set (path, params, merge = false) {
+    return Firestore.db.doc(path)
       .set(params, { merge })
   }
 
@@ -84,8 +88,8 @@ class Firestore {
    * @param {object} params - Document data
    * @returns {Promise<FirebaseFirestore.WriteResult>}
    */
-  update (path, params) {
-    return this.db.doc(path)
+  static update (path, params) {
+    return Firestore.db.doc(path)
       .update(params)
   }
 
@@ -94,9 +98,27 @@ class Firestore {
    * @param {string} path - The path to the document
    * @returns {Promise<FirebaseFirestore.WriteResult>}
    */
-  delete (path) {
-    return this.db.doc(path)
+  static delete (path) {
+    return Firestore.db.doc(path)
       .delete()
+  }
+
+  /**
+   * Create a new documents or update the documents
+   * @param {string} path - The path to the collection
+   * @param {string} key - Key to use as an ID
+   * @param {array.<object>} payload - Documents data
+   * @returns {Promise<FirebaseFirestore.WriteResult[]>}
+   */
+  static batchSet (path, key, payload) {
+    const ref = Firestore.db.collection(path)
+    const batch = Firestore.db.batch()
+
+    payload.forEach(data => (
+      (typeof (data[key]) !== 'undefined') && batch.set(ref.doc(data[key]), data)
+    ))
+
+    return batch.commit()
   }
 }
 
