@@ -84,10 +84,18 @@ class AbstractRepository {
    * Create a new documents or update the documents
    * @param {string} key - Key to use as an ID
    * @param {array.<object>} payload - Documents data
-   * @returns {Promise<FirebaseFirestore.WriteResult[]>}
+   * @returns {Promise<FirebaseFirestore.WriteResult[][]>}
    */
   batchSet (key, payload) {
-    return Firestore.batchSet(this.path, key, payload)
+    const chunks = []
+
+    for (let i = 0; i < payload.length; i += 500) {
+      chunks.push(
+        payload.slice(i, i+500)
+      )
+    }
+
+    return Promise.all(chunks.map(data => (Firestore.batchSet(this.path, key, data))));
   }
 }
 
