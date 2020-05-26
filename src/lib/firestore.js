@@ -41,10 +41,10 @@ class Firestore {
     if (typeof (orderBy) === 'string') {
       const [field, order = 'asc'] = orderBy.split('|')
 
-      ref.orderBy(field, order)
+      ref = ref.orderBy(field, order)
     }
 
-    limit && ref.limit(limit)
+    if (limit) ref = ref.limit(limit)
 
     return ref.get()
   }
