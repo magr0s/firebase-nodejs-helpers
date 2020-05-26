@@ -108,7 +108,7 @@ class Firestore {
    * @param {string} path - The path to the collection
    * @param {string} key - Key to use as an ID
    * @param {array.<object>} payload - Documents data
-   * @param {object} options
+   * @param {object} [options]
    * @returns {Promise<FirebaseFirestore.WriteResult[]>}
    */
   static batchSet (path, key, payload, options = {}) {
