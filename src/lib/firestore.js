@@ -108,14 +108,15 @@ class Firestore {
    * @param {string} path - The path to the collection
    * @param {string} key - Key to use as an ID
    * @param {array.<object>} payload - Documents data
+   * @param {object} options
    * @returns {Promise<FirebaseFirestore.WriteResult[]>}
    */
-  static batchSet (path, key, payload) {
+  static batchSet (path, key, payload, options = {}) {
     const ref = Firestore.db.collection(path)
     const batch = Firestore.db.batch()
 
     payload.forEach(data => (
-      (typeof (data[key]) !== 'undefined') && batch.set(ref.doc(data[key]), data)
+      (typeof (data[key]) !== 'undefined') && batch.set(ref.doc(data[key]), data, options)
     ))
 
     return batch.commit()
