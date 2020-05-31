@@ -97,7 +97,7 @@ class AbstractRepository {
     }
 
     return Promise.all(
-      chunks.map(data => (Firestore.batchSet(this.path, key, data)))
+      chunks.map(data => (Firestore.batchSet(this.path, key, data, options)))
     );
   }
 }
