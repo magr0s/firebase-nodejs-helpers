@@ -1,4 +1,4 @@
-const admin = require('firebase-admin')
+const admin = require('firebase-admin');
 
 class Firestore {
   /**
@@ -6,7 +6,7 @@ class Firestore {
    * @returns {FirebaseFirestore.Firestore}
    */
   static get db () {
-    return admin.firestore()
+    return admin.firestore();
   }
 
   /**
@@ -20,9 +20,9 @@ class Firestore {
       conditions,
       orderBy,
       limit = 0
-    } = params
+    } = params;
 
-    let ref = Firestore.db.collection(path)
+    let ref = Firestore.db.collection(path);
 
     if (Array.isArray(conditions)) {
       conditions.forEach((condition) => {
@@ -30,23 +30,23 @@ class Firestore {
           field,
           operator,
           value
-        } = condition
+        } = condition;
 
         if (field && operator && value) {
-          ref = ref.where(field, operator, value)
+          ref = ref.where(field, operator, value);
         }
-      })
+      });
     }
 
     if (typeof (orderBy) === 'string') {
-      const [field, order = 'asc'] = orderBy.split('|')
+      const [field, order = 'asc'] = orderBy.split('|');
 
-      ref = ref.orderBy(field, order)
+      ref = ref.orderBy(field, order);
     }
 
-    if (limit) ref = ref.limit(limit)
+    if (limit) ref = ref.limit(limit);
 
-    return ref.get()
+    return ref.get();
   }
 
   /**
@@ -56,7 +56,7 @@ class Firestore {
    */
   static get (path) {
     return Firestore.db.doc(path)
-      .get()
+      .get();
   }
 
   /**
@@ -67,19 +67,19 @@ class Firestore {
    */
   static create (path, params) {
     return Firestore.db.collection(path)
-      .add(params)
+      .add(params);
   }
 
   /**
    * Create a new document or update the document
    * @param {string} path - The path to the document
    * @param {object} params - Document data
-   * @param {boolean} merge - Update method
+   * @param {boolean} [merge] - Update method
    * @returns {Promise<FirebaseFirestore.WriteResult>}
    */
   static set (path, params, merge = false) {
     return Firestore.db.doc(path)
-      .set(params, { merge })
+      .set(params, { merge });
   }
 
   /**
@@ -90,7 +90,7 @@ class Firestore {
    */
   static update (path, params) {
     return Firestore.db.doc(path)
-      .update(params)
+      .update(params);
   }
 
   /**
@@ -100,7 +100,7 @@ class Firestore {
    */
   static delete (path) {
     return Firestore.db.doc(path)
-      .delete()
+      .delete();
   }
 
   /**
@@ -112,15 +112,15 @@ class Firestore {
    * @returns {Promise<FirebaseFirestore.WriteResult[]>}
    */
   static batchSet (path, key, payload, options = {}) {
-    const ref = Firestore.db.collection(path)
-    const batch = Firestore.db.batch()
+    const ref = Firestore.db.collection(path);
+    const batch = Firestore.db.batch();
 
     payload.forEach(data => (
       (typeof (data[key]) !== 'undefined') && batch.set(ref.doc(data[key]), data, options)
-    ))
+    ));
 
-    return batch.commit()
+    return batch.commit();
   }
 }
 
-module.exports = Firestore
+module.exports = Firestore;
