@@ -15,10 +15,10 @@ FirebaseAdmin.init({ config })
 ```
 
 ```js
-// repository.js
+// store.js
 const { Firestore } = require('firebase-nodejs-helpers')
 
-class Repository {
+class Store {
   constructor (path) {
     this.path = path
   }
@@ -111,5 +111,9 @@ Firestore.delete('path/to/document')
 ##### Create a new or update the documents collection
 ```js
 // Example
-Firestore.batchSet('path/to/document', 'id', payload)
+const options = {
+    merge: false
+};
+
+Firestore.batchSet('path/to/document', 'id', payload, options)
 ```
