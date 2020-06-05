@@ -1,6 +1,6 @@
-const Firestore = require('./firestore')
+const Firestore = require('../Firestore')
 
-class AbstractRepository {
+class AbstractStore {
   /**
    * Class constructor
    * @param {string} path - Path to repository
@@ -102,4 +102,4 @@ class AbstractRepository {
   }
 }
 
-module.exports = AbstractRepository
+module.exports = AbstractStore

@@ -1,9 +1,9 @@
-const FirebaseAdmin = require('./lib/firebaseAdmin')
-const Firestore = require('./lib/firestore')
-const AbstractRepository = require('./lib/abstract-repository')
+const FirebaseAdmin = require('./FirebaseAdmin')
+const Firestore = require('./Firestore')
+const AbstractStore = require('./libs/AbstractStore')
 
 module.exports = {
   FirebaseAdmin,
   Firestore,
-  AbstractRepository
+  AbstractStore
 }
