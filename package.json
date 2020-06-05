@@ -1,6 +1,6 @@
 {
   "name": "firebase-nodejs-helpers",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Node.js helper classes for Firebase",
   "main": "src/index.js",
   "scripts": {
