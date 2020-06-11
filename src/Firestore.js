@@ -32,7 +32,11 @@ class Firestore {
           value
         } = condition;
 
-        if (field && operator && value) {
+        if (
+          field &&
+          operator &&
+          typeof (value) !== 'undefined'
+        ) {
           ref = ref.where(field, operator, value);
         }
       });
